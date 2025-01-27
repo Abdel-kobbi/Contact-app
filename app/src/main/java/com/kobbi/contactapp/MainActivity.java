@@ -1,6 +1,7 @@
 package com.kobbi.contactapp;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    ListView contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +26,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        contactList = findViewById(R.id.contactList);
+
+        List<Contact> contacts = new ArrayList<>();
+        contacts.add(new Contact("Abdel", "0658545427"));
+        contacts.add(new Contact("reda", "0658545427"));
+        contacts.add(new Contact("halim", "0658545427"));
+
+        ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(), R.layout.item_contact, contacts);
+
+        contactList.setAdapter(contactAdapter);
     }
 }
