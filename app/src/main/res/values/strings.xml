@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ContactApp</string>
+    <string name="contactAvatar">Contact avatar</string>
+    <string name="contactName">Abdel khaliq kobbi</string>
+    <string name="contactPhone">0658545427</string>
+    <string name="btnAdd">Ajouter</string>
 </resources>
