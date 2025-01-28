@@ -1,6 +1,8 @@
 package com.kobbi.contactapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ListView contactList;
+    Button btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         contactList = findViewById(R.id.contactList);
+        btnAdd = findViewById(R.id.btnAdd);
 
         List<Contact> contacts = new ArrayList<>();
         contacts.add(new Contact("Abdel", "0658545427"));
@@ -37,5 +41,10 @@ public class MainActivity extends AppCompatActivity {
         ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(), R.layout.item_contact, contacts);
 
         contactList.setAdapter(contactAdapter);
+
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AddContactForm.class);
+            startActivity(intent);
+        });
     }
 }

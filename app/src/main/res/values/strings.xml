@@ -4,4 +4,7 @@
     <string name="contactName">Abdel khaliq kobbi</string>
     <string name="contactPhone">0658545427</string>
     <string name="btnAdd">Ajouter</string>
+    <string name="editName">Nom</string>
+    <string name="editPhone">Numéro de télephone</string>
+    <string name="addContact">Ajouter nouveau contact</string>
 </resources>
