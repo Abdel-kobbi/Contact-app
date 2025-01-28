@@ -6,9 +6,11 @@
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDart</item>
+        <item name="android:windowBackground">@color/white</item>
+
     </style>
 
     <style name="Theme.ContactApp" parent="Base.Theme.ContactApp" />
-
 
 </resources>

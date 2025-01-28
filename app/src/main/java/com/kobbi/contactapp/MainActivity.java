@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView contactList;
     Button btnAdd;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
 
         contactList = findViewById(R.id.contactList);
         btnAdd = findViewById(R.id.btnAdd);
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         contactList.setAdapter(contactAdapter);
 
         btnAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), AddContactForm.class);
+            Intent intent = new Intent(getApplicationContext(), AddContact.class);
             startActivity(intent);
         });
     }

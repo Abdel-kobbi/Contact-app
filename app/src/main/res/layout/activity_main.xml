@@ -6,7 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+<include
+    android:id="@+id/included"
+    layout="@layout/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    />
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
@@ -25,5 +30,6 @@
         android:id="@+id/contactList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btnAdd" />
+        android:layout_above="@id/btnAdd"
+        android:layout_below="@id/included"/>
 </RelativeLayout>
