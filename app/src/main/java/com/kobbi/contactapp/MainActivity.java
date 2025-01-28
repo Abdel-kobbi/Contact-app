@@ -2,6 +2,8 @@ package com.kobbi.contactapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -51,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), AddContact.class);
             startActivity(intent);
+        });
+
+        // add listener to contact list
+
+        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), UpdateContact.class);
+                startActivity(intent);
+            }
         });
     }
 }

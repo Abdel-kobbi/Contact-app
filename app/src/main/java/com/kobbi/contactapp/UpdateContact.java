@@ -1,7 +1,6 @@
 package com.kobbi.contactapp;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,6 +41,7 @@ public class UpdateContact extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.deleteContact) {
+            new ShowAlert().show(getSupportFragmentManager(), "");
             return true;
         } else {
             return super.onOptionsItemSelected(item);
