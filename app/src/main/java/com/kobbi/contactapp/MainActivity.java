@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     ListView contactList;
     Button btnAdd;
     Toolbar toolbar;
+
+    DbContact db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        contactList = findViewById(R.id.contactList);
+        db = new DbContact(getApplicationContext());
+
         btnAdd = findViewById(R.id.btnAdd);
+        contactList = findViewById(R.id.contactList);
+        View emptyView = findViewById(R.id.emptyView);
+        contactList.setEmptyView(emptyView);
 
-        List<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact("Abdel", "0658545427"));
-        contacts.add(new Contact("reda", "0658545427"));
-        contacts.add(new Contact("halim", "0658545427"));
 
-        ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(), R.layout.item_contact, contacts);
-
-        contactList.setAdapter(contactAdapter);
+        setDataToList();
 
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), AddContact.class);
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // add listener to contact list
-
         contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -64,5 +63,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setDataToList() {
+        List<Contact> contacts = db.findAll();
+
+        ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(), R.layout.item_contact, contacts);
+
+        contactList.setAdapter(contactAdapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setDataToList();
     }
 }

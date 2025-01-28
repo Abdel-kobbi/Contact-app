@@ -10,4 +10,5 @@
     <string name="addContact">Ajouter nouveau contact</string>
     <string name="updateContact">Modifier contact</string>
     <string name="deleteContact">supprimer contact</string>
+    <string name="emptyView">Pas de contact</string>
 </resources>
