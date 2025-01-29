@@ -3,10 +3,8 @@ package com.kobbi.contactapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +17,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView contactList;
-    Button btnAdd;
-    Toolbar toolbar;
+    private ListView contactList;
+    private Button btnAdd;
 
-    DbContact db;
+    private DbContact db;
+    private List<Contact> contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         View emptyView = findViewById(R.id.emptyView);
         contactList.setEmptyView(emptyView);
 
-
         setDataToList();
 
         btnAdd.setOnClickListener(v -> {
@@ -56,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // add listener to contact list
-        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), UpdateContact.class);
-                startActivity(intent);
-            }
+        contactList.setOnItemClickListener((parent, view, position, id) -> {
+            Contact contact = contacts.get(position);
+            Intent intent = new Intent(getApplicationContext(), UpdateContact.class);
+            intent.putExtra("contact", contact);
+            startActivity(intent);
+
         });
     }
 
     private void setDataToList() {
-        List<Contact> contacts = db.findAll();
+        contacts = db.findAll();
 
         ContactAdapter contactAdapter = new ContactAdapter(getApplicationContext(), R.layout.item_contact, contacts);
 

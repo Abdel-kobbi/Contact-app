@@ -1,8 +1,12 @@
 package com.kobbi.contactapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,7 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class UpdateContact extends AppCompatActivity {
 
-    Toolbar toolbar;
+    private EditText name, phone;
+    private Button btnUpdate;
+    DbContact db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +33,37 @@ public class UpdateContact extends AppCompatActivity {
             return insets;
         });
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = new DbContact(getApplicationContext());
+
+        name = findViewById(R.id.contactName);
+        phone = findViewById(R.id.contactPhone);
+        btnUpdate = findViewById(R.id.btnUpdate);
+
+        Intent intent = getIntent();
+        Contact contact = (Contact) intent.getSerializableExtra("contact");
+        if (contact != null) {
+            name.setText(contact.getName());
+            phone.setText(contact.getPhone());
+        }
+
+        btnUpdate.setOnClickListener(v -> {
+            String nameValue = name.getText().toString();
+            String phoneValue = phone.getText().toString();
+            if (nameValue.isEmpty() || phoneValue.isEmpty()) {
+                return;
+            }
+            if (contact != null) {
+                contact.setName(nameValue);
+                contact.setPhone(phoneValue);
+                db.updateContact(contact);
+                finish();
+                Toast.makeText(getApplicationContext(), "Le contact a été modifié avec succès.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

@@ -47,6 +47,7 @@ public class DbContact extends SQLiteOpenHelper {
         values.put(KEY_NAME, contact.getName());
         values.put(KEY_PHONE, contact.getPhone());
         db.insert(TABLE_NAME, null, values);
+        db.close();
     }
 
     public List<Contact> findAll() {
@@ -63,6 +64,16 @@ public class DbContact extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return contacts;
+    }
+
+    public void updateContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, contact.getName());
+        values.put(KEY_PHONE, contact.getPhone());
+        db.update(TABLE_NAME, values, KEY_ID + "= ?", new String[]{String.valueOf(contact.getId())});
+        db.close();
     }
 }

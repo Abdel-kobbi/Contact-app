@@ -14,10 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AddContact extends AppCompatActivity {
 
-    Toolbar toolbar;
-
-    EditText name, phone;
-    Button btnAdd;
+    private EditText name, phone;
+    private Button btnAdd;
 
     DbContact db;
 
@@ -32,7 +30,7 @@ public class AddContact extends AppCompatActivity {
             return insets;
         });
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         db = new DbContact(getApplicationContext());
