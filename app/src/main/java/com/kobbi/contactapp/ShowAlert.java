@@ -2,6 +2,7 @@ package com.kobbi.contactapp;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +11,13 @@ import androidx.fragment.app.DialogFragment;
 
 
 public class ShowAlert extends DialogFragment {
+
+    private final Contact contact;
+
+    public ShowAlert(Contact contact) {
+        this.contact = contact;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -18,7 +26,9 @@ public class ShowAlert extends DialogFragment {
                 .setMessage("Etes-vous sûr de vouloir supprimer ce contact ?")
                 .setPositiveButton("Oui", (dialog, i) -> {
                     // delete Contact
-
+                    new DbContact(requireContext()).deleteContact(contact);
+                    Toast.makeText(requireContext(), "Le contact a été supprimé avec succès.", Toast.LENGTH_SHORT).show();
+                    requireActivity().finish();
                 })
                 .setNegativeButton("Non", (dialog, i) -> dialog.dismiss());
 

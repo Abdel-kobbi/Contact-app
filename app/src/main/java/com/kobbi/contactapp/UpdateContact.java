@@ -20,6 +20,8 @@ public class UpdateContact extends AppCompatActivity {
 
     private EditText name, phone;
     private Button btnUpdate;
+
+    Contact contact;
     DbContact db;
 
     @Override
@@ -43,7 +45,7 @@ public class UpdateContact extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
 
         Intent intent = getIntent();
-        Contact contact = (Contact) intent.getSerializableExtra("contact");
+        contact = (Contact) intent.getSerializableExtra("contact");
         if (contact != null) {
             name.setText(contact.getName());
             phone.setText(contact.getPhone());
@@ -76,7 +78,7 @@ public class UpdateContact extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.deleteContact) {
-            new ShowAlert().show(getSupportFragmentManager(), "");
+            new ShowAlert(contact).show(getSupportFragmentManager(), "");
             return true;
         } else {
             return super.onOptionsItemSelected(item);

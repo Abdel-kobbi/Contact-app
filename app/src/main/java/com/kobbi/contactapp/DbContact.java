@@ -52,7 +52,7 @@ public class DbContact extends SQLiteOpenHelper {
 
     public List<Contact> findAll() {
         List<Contact> contacts = new ArrayList<>();
-        String sql = "SELECT * from " + TABLE_NAME;
+        String sql = "SELECT * from " + TABLE_NAME + " ORDER BY " + KEY_ID + " DESC;";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
@@ -74,6 +74,12 @@ public class DbContact extends SQLiteOpenHelper {
         values.put(KEY_NAME, contact.getName());
         values.put(KEY_PHONE, contact.getPhone());
         db.update(TABLE_NAME, values, KEY_ID + "= ?", new String[]{String.valueOf(contact.getId())});
+        db.close();
+    }
+
+    public void deleteContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + "= ?", new String[]{String.valueOf(contact.getId())});
         db.close();
     }
 }
